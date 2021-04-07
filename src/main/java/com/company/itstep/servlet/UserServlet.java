@@ -3,9 +3,7 @@ package com.company.itstep.servlet;
 import com.company.itstep.model.User;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 import java.io.IOException;
 
 public class UserServlet extends HttpServlet {
@@ -31,6 +29,19 @@ public class UserServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         resp.setContentType("text/html;charset=UTF-8");
         req.setAttribute("user", user);
+
+        HttpSession session = req.getSession();//создание обьекта сессии
+        //session.setAttribute("data", "some session from servlet");
+        session.setAttribute("userSession", user);
+        System.out.println("Session id = " + session.getId());
+        System.out.println("session.getCreationTime() = " + session.getCreationTime());
+        session.setMaxInactiveInterval(15);
+
+
+        Cookie cookie = new Cookie("cookieName", "cookieValue");
+        cookie.setMaxAge(10);
+        cookie.setPath("/home");
+        resp.addCookie(cookie);
 
 
         req.getRequestDispatcher("user.jsp").forward(req,resp);

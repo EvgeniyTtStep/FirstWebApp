@@ -1,3 +1,4 @@
+<jsp:useBean id="user" scope="request" type="com.company.itstep.model.User"/>
 <%--
   Created by IntelliJ IDEA.
   User: Evgeniy
@@ -15,7 +16,7 @@
 <h1>User</h1>
 
 <%
-    User user = (User) request.getAttribute("user");
+    user = (User) request.getAttribute("user");
 %>
 <p><strong>Name:</strong> <% out.println(((User) request.getAttribute("user")).getName());%></p>
 <%
@@ -33,5 +34,16 @@
         out.println("No");
     }
 %></p>
+<%--<p><strong>Session:</strong>${sessionScope}</p>--%>
+
+
+<%
+    user = (User) session.getAttribute("userSession");
+%>
+
+<p><strong>Name session:</strong>${user.name}</p>
+<p><strong>LastName session:</strong>${user.lastName}</p>
+<p><strong>Email session:</strong>${user.email}</p>
+
 </body>
 </html>
