@@ -38,9 +38,11 @@ public class UserServlet extends HttpServlet {
         session.setMaxInactiveInterval(15);
 
 
+
         Cookie cookie = new Cookie("cookieName", "cookieValue");
+        System.out.println("cookie value = " + cookie.getValue());
         cookie.setMaxAge(10);
-        cookie.setPath("/home");
+        //cookie.setPath("/home");
         resp.addCookie(cookie);
 
 
