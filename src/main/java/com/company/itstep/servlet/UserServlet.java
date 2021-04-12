@@ -5,6 +5,7 @@ import com.company.itstep.model.User;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 import java.io.IOException;
+import java.util.UUID;
 
 public class UserServlet extends HttpServlet {
 
@@ -24,6 +25,8 @@ public class UserServlet extends HttpServlet {
 
         System.out.println("req.getParameter(\"check\") = " + req.getParameter("check"));
         int age = Integer.parseInt(req.getParameter("age"));
+
+        UUID uuid = UUID.randomUUID();
 
         User user = new User(name, lastName, email, age, check);
         req.setCharacterEncoding("UTF-8");

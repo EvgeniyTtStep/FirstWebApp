@@ -3,25 +3,18 @@ package com.company.itstep.model;
 
 /*ФИО, телефон, email, возраст*/
 
+import java.util.UUID;
+
 public class User {
+    UUID id;
     String name;
     String lastName;
     String email;
     int age;
     boolean check;
 
-
-
     public User() {
     }
-
-    public User(String name, String lastName, String email, int age) {
-        this.name = name;
-        this.lastName = lastName;
-        this.email = email;
-        this.age = age;
-    }
-
 
     public User(String name, String lastName, String email, int age, boolean check) {
         this.name = name;
@@ -29,6 +22,23 @@ public class User {
         this.email = email;
         this.age = age;
         this.check = check;
+    }
+
+    public User(UUID id, String name, String lastName, String email, int age, boolean check) {
+        this.id = id;
+        this.name = name;
+        this.lastName = lastName;
+        this.email = email;
+        this.age = age;
+        this.check = check;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public boolean isCheck() {
@@ -74,6 +84,7 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
+                "id = " + id +'\'' +
                 "name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +

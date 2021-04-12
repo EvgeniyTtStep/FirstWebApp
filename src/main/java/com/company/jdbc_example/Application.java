@@ -1,9 +1,11 @@
-package com.company.jdbc;
+package com.company.jdbc_example;
 
 import com.company.itstep.model.User;
 
 import java.sql.*;
 import java.time.LocalTime;
+
+import static com.company.itstep.util.ConnectionJDBC.statement;
 
 public class Application {
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
@@ -50,6 +52,11 @@ public class Application {
         System.out.println(resultSet.getString("name"));
 
         System.out.println("Ok");
+
+
+        PreparedStatement preparedStatement = connection.prepareStatement("insert into `user`(name, lastName, email, age) values (?,?,?,?)");
+
+
     }
 
     private static void update(Statement statement, User user, int id) throws SQLException {
