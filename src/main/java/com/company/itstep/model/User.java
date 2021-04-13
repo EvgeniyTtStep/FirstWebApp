@@ -3,9 +3,16 @@ package com.company.itstep.model;
 
 /*ФИО, телефон, email, возраст*/
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.Table;
 import java.util.UUID;
 
+
 public class User {
+
+
     UUID id;
     String name;
     String lastName;

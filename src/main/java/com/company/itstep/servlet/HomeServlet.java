@@ -13,7 +13,7 @@ import java.io.IOException;
 public class HomeServlet extends HttpServlet {
 
     @Override
-    public void init(ServletConfig config) throws ServletException {
+    public void init(ServletConfig config)  {
         System.out.println("Init method");
     }
 

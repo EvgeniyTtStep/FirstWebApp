@@ -6,6 +6,8 @@ import com.company.itstep.model.User;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import static com.company.itstep.util.ConnectionJDBC.*;
@@ -16,6 +18,8 @@ public class UserDAOImpl implements UserDAO {
     private static final String UPDATE = "UPDATE `user` set  name = ?, lastName = ?, email=?, age=?";
     private static final String GET_BY_ID = "SELECT * FROM `user` WHERE id_user = ?";
     private static final String DELETE = "DELETE FROM user WHERE id_user = ?";
+
+    private static List<User> users = new ArrayList<>();
 
 
     public UserDAOImpl() {
@@ -65,15 +69,16 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public void delete(UUID uuid) {
         try {
-           preparedStatement = connection.prepareStatement(DELETE);
-           preparedStatement.setString(1, String.valueOf(uuid));
-           preparedStatement.executeUpdate();
+            preparedStatement = connection.prepareStatement(DELETE);
+            preparedStatement.setString(1, String.valueOf(uuid));
+            preparedStatement.executeUpdate();
         } catch (SQLException throwables) {
             System.out.println("Delete exception");
             throwables.printStackTrace();
         }
 
     }
+
 
     @Override
     public User getById(UUID uuid) {
@@ -103,5 +108,22 @@ public class UserDAOImpl implements UserDAO {
         }
 
         return user;
+    }
+
+
+    public void showUsersFromDeveloper(UUID id) {
+        try {
+            preparedStatement = connection.prepareStatement("SELECT * FROM `user`" +
+                    "INNER JOIN user_developer ON user.id_user = user_developer.user_id " +
+                    "INNER JOIN developer d on d.id_developer = user_developer.developer_id " +
+                    "where id_developer = ?");
+            preparedStatement.setString(1, String.valueOf(id));
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                users.add(getById(UUID.fromString(resultSet.getString(1))));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 }
